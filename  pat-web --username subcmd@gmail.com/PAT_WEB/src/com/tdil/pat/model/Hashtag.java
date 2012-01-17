@@ -65,7 +65,7 @@ public class Hashtag {
 		newhashtag.setHashtag("mdq");
 		newhashtag.setActive(true);
 		newhashtag.setFiltering(true);
-		newhashtag.setFilteringMode("remove");
+		newhashtag.setFilteringMode("replace");
 		newhashtag.setFeedCheckInterval(350);
 		List<Hashtag> modif = new ArrayList<Hashtag>();
 		modif.add(newhashtag);
