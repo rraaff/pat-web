@@ -88,7 +88,7 @@ public class Poll {
 //		modify(instances);
 	}
 
-	private static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
+	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
 		CVSUtils.read("poll.csv", headers, Poll.class, instances);
 	}

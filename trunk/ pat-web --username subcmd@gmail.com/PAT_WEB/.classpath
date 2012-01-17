@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-digester.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-validator.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/jakarta-oro.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/struts.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/javacsv.jar" sourcepath="javacsv2.1-src.zip"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
+	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-beanutils.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-digester.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-fileupload.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-validator.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/jakarta-oro.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/javacsv.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/struts.jar"/>
+	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
