@@ -16,7 +16,22 @@ Home
 <% if (!org.apache.commons.lang.StringUtils.isEmpty((String)request.getAttribute("error"))) { %>
 	Error: <%=request.getAttribute("error")%><br>
 <% } %>
-<html:text name="HashtagForm" property="edited.hashtag"/><br>
+Hashtag:<html:text name="HashtagForm" property="edited.hashtag"/><br>
+Filtro:<html:checkbox name="HashtagForm" property="edited.filtering"/><br>
+
+Tipo de filtro:<html:select name="HashtagForm" property="edited.filteringMode" styleClass="textfield_effect">
+	<logic:equal name="HashtagForm" property="edited.filteringMode" value="replace">
+		<option value="replace" selected>Reemplazar</option>
+		<option value="reject">Rechazar</option>
+	</logic:equal>
+	<logic:equal name="HashtagForm" property="edited.filteringMode" value="reject">
+		<option value="replace">Reemplazar</option>
+		<option value="reject" selected>Rechazar</option>
+	</logic:equal>
+</html:select><br>
+
+Frecuencia de consulta (?):<html:text name="HashtagForm" property="edited.feedCheckInterval"/><br>
+
 <html:submit property="operation">Save</html:submit>
 </html:form>
 </fieldset>
