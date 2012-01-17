@@ -6,6 +6,8 @@
   </form-beans>
   <action-mappings>
     <action path="/login" name="LoginForm" type="com.tdil.pat.actions.LoginAction" scope="request">
+      <forward name="failure" path="/index.jsp"/>
+      <forward name="continue" path="/home.jsp"/>
     </action>
   </action-mappings>
   <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

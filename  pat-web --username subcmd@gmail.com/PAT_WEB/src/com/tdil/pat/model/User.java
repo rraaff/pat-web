@@ -37,5 +37,14 @@ public class User {
 		CVSUtils.read("user.csv", headers, User.class, instances);
 	}
 	
+	public static User getUserBy(String username2, String password2) {
+		for (User user : instances) {
+			if (user.getUsername().equals(username2) && user.getPassword().equals(password2)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	
 }
