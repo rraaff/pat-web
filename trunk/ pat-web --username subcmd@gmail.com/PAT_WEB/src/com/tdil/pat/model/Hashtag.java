@@ -78,4 +78,8 @@ public class Hashtag {
 		CVSUtils.read("hashtag.csv", headers, Hashtag.class, instances);
 		LOG.fatal("hashtag read");
 	}
+	
+	public static Hashtag uniqueInstance() {
+		return instances.get(0);
+	}
 }
