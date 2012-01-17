@@ -5,6 +5,11 @@
   "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+
+	<listener>
+		<listener-class>com.tdil.pat.PATSystem</listener-class>
+	</listener>
+
   <servlet>
     <servlet-name>action</servlet-name>
     <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>

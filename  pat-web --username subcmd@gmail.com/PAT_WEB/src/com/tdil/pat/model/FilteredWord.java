@@ -7,25 +7,19 @@ import java.util.List;
 
 import com.tdil.cvs.CVSUtils;
 
-public class User {
+public class FilteredWord {
 
-	private String username;
-	private String password;
+	private String word;
 	
-	private static String headers[] = {"username","password"};
-	private static List<User> instances = new ArrayList<User>();
+	private static String headers[] = {"word"};
+	private static List<FilteredWord> instances = new ArrayList<FilteredWord>();
 
-	public String getUsername() {
-		return username;
+	public String getWord() {
+		return word;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setWord(String word) {
+		this.word = word;
 	}
 	
 	public static void main(String[] args) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
@@ -34,8 +28,6 @@ public class User {
 	
 	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
-		CVSUtils.read("user.csv", headers, User.class, instances);
+		CVSUtils.read("filteredword.csv", headers, FilteredWord.class, instances);
 	}
-	
-	
 }

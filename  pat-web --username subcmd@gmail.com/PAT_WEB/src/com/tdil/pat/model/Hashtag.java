@@ -5,7 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.tdil.cvs.CVSUtils;
+import com.tdil.pat.LoggerProvider;
 
 public class Hashtag {
 
@@ -17,6 +20,8 @@ public class Hashtag {
 
 	private static String headers[] = {"hashtag","active","filtering","filteringMode","feedCheckInterval"};
 	private static List<Hashtag> instances = new ArrayList<Hashtag>();
+	
+	private static Logger LOG = LoggerProvider.getLogger(Hashtag.class);
 	
 	public String getHashtag() {
 		return hashtag;
@@ -67,8 +72,10 @@ public class Hashtag {
 		modify(modif);
 		
 	}
-	private static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
+	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
+		LOG.fatal("reading hashtag");
 		CVSUtils.read("hashtag.csv", headers, Hashtag.class, instances);
+		LOG.fatal("hashtag read");
 	}
 }
