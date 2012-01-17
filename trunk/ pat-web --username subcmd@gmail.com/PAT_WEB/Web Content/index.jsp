@@ -7,7 +7,11 @@
 
 <html:form method="POST" action="/login">
 <html:hidden name="LoginForm" property="operation" value=""/>
+<% if (!org.apache.commons.lang.StringUtils.isEmpty((String)request.getAttribute("error"))) { %>
+	Error: <%=request.getAttribute("error")%><br>
+<% } %>
 <html:text name="LoginForm" property="username"/><br>
 <html:password name="LoginForm" property="password"/><br>
 <html:submit property="operation">Login</html:submit>
+
 </html:form>
