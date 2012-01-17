@@ -170,7 +170,7 @@
            Note: XML Schema validation will not work with Xerces 2.2.
        -->
        
-      <Host name="localhost" appBase="/home/mgodoy/icarus/workspace/simon/"
+      <Host name="localhost" appBase="${workspace.location}"
        unpackWARs="true" autoDeploy="true"
        xmlValidation="false" xmlNamespaceAware="false">
 

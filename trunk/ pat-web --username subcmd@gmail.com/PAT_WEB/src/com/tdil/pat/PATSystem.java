@@ -48,7 +48,6 @@ public class PATSystem implements ServletContextListener {
 			}
 		}
 		initLogger();
-		// TODO Setear el databse location
 		User.readAll();
 		FilteredWord.readAll();
 		Hashtag.readAll();
