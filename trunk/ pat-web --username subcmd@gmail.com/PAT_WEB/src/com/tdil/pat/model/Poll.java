@@ -79,6 +79,10 @@ public class Poll {
 //		modify(instances);
 	}
 
+	public static Poll uniqueInstance() {
+		return instances.get(0);
+	}
+	
 	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
 		CVSUtils.read("poll.csv", headers, Poll.class, instances);

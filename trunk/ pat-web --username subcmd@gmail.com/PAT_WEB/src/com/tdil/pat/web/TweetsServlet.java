@@ -2,6 +2,8 @@ package com.tdil.pat.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -34,6 +36,7 @@ public class TweetsServlet extends HttpServlet {
 	}
 
 	private void doService(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List<Status> answer = Tweets.last(Hashtag.uniqueInstance().getMaxTweetsToAnswer());
 		PrintWriter out = resp.getWriter();
 		out.append("<answer>");
@@ -53,7 +56,12 @@ public class TweetsServlet extends HttpServlet {
 			out.append("<profileImageURL>");
 			out.append(user.getProfileImageURL() != null ? user.getProfileImageURL().toString() : "");
 			out.append("</profileImageURL>");
-			// TODO
+			out.append("<text>");
+			out.append(status.getText());
+			out.append("</text>");
+			out.append("<createdAt>");
+			out.append(dateFormat.format(status.getCreatedAt()));
+			out.append("</createdAt>");
 			out.append("</tweet>");
 		}
 		out.append("</tweets>");
