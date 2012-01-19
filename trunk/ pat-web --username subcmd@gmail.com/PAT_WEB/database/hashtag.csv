@@ -1,2 +1,2 @@
 hashtag,active,filtering,filteringMode,refreshInterval,maxTweetsToAnswer
-BieberFacts,true,true,replace,30000,5
+BieberFacts,false,true,replace,30000,5
