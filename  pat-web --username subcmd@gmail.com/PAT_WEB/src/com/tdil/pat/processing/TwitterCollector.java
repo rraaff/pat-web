@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.tdil.pat.model.Hashtag;
+import com.tdil.pat.model.Poll;
 import com.tdil.pat.model.TwitterAccount;
 
 import sun.misc.BASE64Encoder;
@@ -17,7 +19,6 @@ public class TwitterCollector extends Thread {
 	private String track = "TheresNoReason";
 
 	private int connectAttemps = 0;
-	private boolean collecting = false;
 	private boolean restart = false;
 
 	private static final long sleepPerAttempt = 10000; // 10 seconds
@@ -54,6 +55,12 @@ public class TwitterCollector extends Thread {
 						connection.disconnect();
 					}
 				}
+			}
+			try {
+				sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
@@ -133,10 +140,7 @@ public class TwitterCollector extends Thread {
 	}
 
 	public boolean isCollecting() {
-		return collecting;
+		return Hashtag.uniqueInstance().isActive() || Poll.uniqueInstance().isActive();
 	}
 
-	public void setCollecting(boolean collecting) {
-		this.collecting = collecting;
-	}
 }
