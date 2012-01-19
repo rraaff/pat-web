@@ -15,7 +15,10 @@ import org.apache.log4j.LogManager;
 import com.tdil.pat.model.FilteredWord;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.model.Poll;
+import com.tdil.pat.model.TwitterAccount;
 import com.tdil.pat.model.User;
+import com.tdil.pat.processing.DataSeparator;
+import com.tdil.pat.processing.testing.FileCollector;
 
 public class PATSystem implements ServletContextListener {
 
@@ -50,8 +53,12 @@ public class PATSystem implements ServletContextListener {
 		initLogger();
 		User.readAll();
 		FilteredWord.readAll();
+		TwitterAccount.readAll();
 		Hashtag.readAll();
 		Poll.readAll();
+		// TODO is file collector ... else // TODO TWITTER COLLECTOR
+		new FileCollector().start();
+		new DataSeparator().start();
 	}
 	
 	private static void initLogger() {

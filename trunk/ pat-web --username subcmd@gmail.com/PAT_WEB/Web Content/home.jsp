@@ -4,8 +4,14 @@
 <%@ taglib uri="/tags/struts-logic" prefix="logic" %>
 <%@ taglib uri="/tags/struts-html" prefix="html" %>
 <%@ taglib uri="/tags/struts-nested" prefix="nested" %>
-
-Home
+<%
+com.tdil.pat.model.User user = (com.tdil.pat.model.User)session.getAttribute("user");
+	if (user == null) { %>
+	<jsp:forward page="./index.jsp">
+		<jsp:param name="error" value="notlogged"/>
+	</jsp:forward>
+<% 	
+	} %>
 <html>
 <body>
 
