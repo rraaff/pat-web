@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.tdil.pat.model.TwitterAccount;
+
 import sun.misc.BASE64Encoder;
 
 public class TwitterCollector extends Thread {
 
-	private String username = "subcmd_";
-	private String password = "nojodas";
+	private String username;
+	private String password;
 	private String track = "TheresNoReason";
 
 	private int connectAttemps = 0;
@@ -23,6 +25,9 @@ public class TwitterCollector extends Thread {
 	@Override
 	public void run() {
 		while (true) {
+			// Toma los datos nuevamente
+			username = TwitterAccount.uniqueInstance().getUsername();
+			password = TwitterAccount.uniqueInstance().getPassword();
 			if (this.isCollecting()) {
 				waitBeforeConnecting(connectAttemps);
 				HttpURLConnection connection = null;
@@ -63,7 +68,27 @@ public class TwitterCollector extends Thread {
 	}
 
 	private boolean requiresRestart() {
+		if (twitterAccountHasChanged()) {
+			return true;
+		}
+		if (trackDataHasChanged()) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean trackDataHasChanged() {
 		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean twitterAccountHasChanged() {
+		if (!this.getUsername().equals(TwitterAccount.uniqueInstance().getUsername())) {
+			return true;
+		}
+		if (!this.getPassword().equals(TwitterAccount.uniqueInstance().getPassword())) {
+			return true;
+		}
 		return false;
 	}
 

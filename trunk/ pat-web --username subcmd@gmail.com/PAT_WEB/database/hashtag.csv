@@ -1,2 +1,2 @@
-hashtag,active,filtering,filteringMode,feedCheckInterval
-mdq,true,true,replace,350
+hashtag,active,filtering,filteringMode,refreshInterval,maxTweetsToAnswer
+mdq,true,true,replace,30000,5

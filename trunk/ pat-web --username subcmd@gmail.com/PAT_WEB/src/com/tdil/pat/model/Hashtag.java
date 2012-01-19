@@ -16,9 +16,13 @@ public class Hashtag {
 	private boolean active;
 	private boolean filtering;
 	private String filteringMode;
-	private long feedCheckInterval;
+	
+	private long refreshInterval;
+	private int maxTweetsToAnswer;
+	
+	// todo agregar refresh time y max cantidad a retornar
 
-	private static String headers[] = {"hashtag","active","filtering","filteringMode","feedCheckInterval"};
+	private static String headers[] = {"hashtag","active","filtering","filteringMode","refreshInterval","maxTweetsToAnswer"};
 	private static List<Hashtag> instances = new ArrayList<Hashtag>();
 	
 	private static Logger LOG = LoggerProvider.getLogger(Hashtag.class);
@@ -47,11 +51,18 @@ public class Hashtag {
 	public void setFilteringMode(String filteringmode) {
 		this.filteringMode = filteringmode;
 	}
-	public long getFeedCheckInterval() {
-		return feedCheckInterval;
+	
+	public long getRefreshInterval() {
+		return refreshInterval;
 	}
-	public void setFeedCheckInterval(long feedcheckinterval) {
-		this.feedCheckInterval = feedcheckinterval;
+	public void setRefreshInterval(long refreshInterval) {
+		this.refreshInterval = refreshInterval;
+	}
+	public int getMaxTweetsToAnswer() {
+		return maxTweetsToAnswer;
+	}
+	public void setMaxTweetsToAnswer(int maxTweetsToAnswer) {
+		this.maxTweetsToAnswer = maxTweetsToAnswer;
 	}
 	
 	public static void modify(List<Hashtag> hashtags) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -66,7 +77,6 @@ public class Hashtag {
 		newhashtag.setActive(true);
 		newhashtag.setFiltering(true);
 		newhashtag.setFilteringMode("replace");
-		newhashtag.setFeedCheckInterval(350);
 		List<Hashtag> modif = new ArrayList<Hashtag>();
 		modif.add(newhashtag);
 		modify(modif);
@@ -82,4 +92,5 @@ public class Hashtag {
 	public static Hashtag uniqueInstance() {
 		return instances.get(0);
 	}
+
 }
