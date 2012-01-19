@@ -1,4 +1,4 @@
-package com.tdil.text;
+package com.tdil.pat.text;
 
 import java.util.HashSet;
 import java.util.Set;
