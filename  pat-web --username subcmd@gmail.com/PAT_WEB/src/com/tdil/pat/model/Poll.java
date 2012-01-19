@@ -11,10 +11,9 @@ public class Poll {
 
 	private String name;
 	private boolean active;
-	private long feedCheckInterval;
 	private List<String> options = new ArrayList<String>();
 
-	private static String headers[] = { "name", "active", "feedCheckInterval","optionsList" };
+	private static String headers[] = { "name", "active", "optionsList" };
 	private static List<Poll> instances = new ArrayList<Poll>();
 
 	public String getName() {
@@ -23,14 +22,6 @@ public class Poll {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getFeedCheckInterval() {
-		return feedCheckInterval;
-	}
-
-	public void setFeedCheckInterval(long feedCheckInterval) {
-		this.feedCheckInterval = feedCheckInterval;
 	}
 
 	public boolean isActive() {

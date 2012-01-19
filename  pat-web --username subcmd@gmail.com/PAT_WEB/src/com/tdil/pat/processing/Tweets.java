@@ -20,21 +20,22 @@ public class Tweets {
 		}
 	}
 
-	public List<Status> last() {
+	public static List<Status> last(int maxResultSize) {
 		Status tweetsCopy[] = new Status[100];
 		int currIndex = 0;
 		synchronized (mutex) {
-			currIndex = index - 1;
+			// copio el original
 			System.arraycopy(tweets, 0, tweetsCopy, 0, 100);
+			currIndex = index - 1;
+			currIndex = currIndex < 0 ? 99 : currIndex;
+			tweets[currIndex] = null; // CORTE
 		}
 		List<Status> result = new ArrayList<Status>();
 		int resultSize = 0;
-		int maxResultSize = 10;
-		currIndex = currIndex < 0 ? 100 : currIndex;
 		while (resultSize < maxResultSize && tweetsCopy[currIndex] != null) {
 			result.add(tweetsCopy[currIndex]);
 			resultSize = resultSize + 1;
-			currIndex = currIndex - 1 < 0 ? 100 : currIndex - 1;
+			currIndex = currIndex - 1 < 0 ? 99 : currIndex - 1;
 		}
 		return result;
 	}
