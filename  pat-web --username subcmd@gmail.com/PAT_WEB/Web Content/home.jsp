@@ -19,12 +19,11 @@ com.tdil.pat.model.User user = (com.tdil.pat.model.User)session.getAttribute("us
 <legend>Hashtag</legend>
 <html:form method="POST" action="/hashtag">
 <html:hidden name="HashtagForm" property="operation" value=""/>
-<% if (!org.apache.commons.lang.StringUtils.isEmpty((String)request.getAttribute("error"))) { %>
+<% if (!org.apache.commons.lang.StringUtils.isEmpty((String)request.getAttribute("HashtagForm.error"))) { %>
 	Error: <%=request.getAttribute("error")%><br>
 <% } %>
 Hashtag:<html:text name="HashtagForm" property="edited.hashtag"/><br>
 Filtro:<html:checkbox name="HashtagForm" property="edited.filtering"/><br>
-
 Tipo de filtro:<html:select name="HashtagForm" property="edited.filteringMode" styleClass="textfield_effect">
 	<logic:equal name="HashtagForm" property="edited.filteringMode" value="replace">
 		<option value="replace" selected>Reemplazar</option>
