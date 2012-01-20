@@ -12,7 +12,7 @@ public class TwitterData {
 		size.incrementAndGet();
 		stream.add(string);
 		// TODO volar
-		//System.out.println(string);
+		//System.out.println("data size " + size.get());
 	}
 	
 	public static Integer getSize() {
