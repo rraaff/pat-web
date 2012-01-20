@@ -23,7 +23,7 @@ import com.tdil.pat.processing.testing.FileCollector;
 
 public class PATSystem implements ServletContextListener {
 
-	private static String databasePath;
+	public static String databasePath;
 	
 	public void contextInitialized(ServletContextEvent sce) {
 		try {

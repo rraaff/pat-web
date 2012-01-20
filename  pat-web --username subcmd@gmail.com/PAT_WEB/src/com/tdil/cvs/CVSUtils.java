@@ -11,16 +11,15 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
+import com.tdil.pat.PATSystem;
 
 public class CVSUtils {
 
-	private static String databaseLocation = "/home/mgodoy/icarus/workspace/simon/PAT_WEB/database/";
-	
 	@SuppressWarnings("unchecked")
 	public synchronized static void read(String filename, String headers[], Class aClass, List result) throws IOException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		CsvReader cvsFile = null;
 		try {
-			cvsFile = new CsvReader(databaseLocation + filename);
+			cvsFile = new CsvReader(PATSystem.databasePath + filename);
 			cvsFile.readHeaders();
 			while(cvsFile.readRecord()) {
 				Map<String, Object> row = new HashMap<String, Object>();
@@ -42,7 +41,7 @@ public class CVSUtils {
 	public synchronized static void write(String filename, String headers[], List data) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		CsvWriter csvOutput = null;
 		try {
-			csvOutput = new CsvWriter(new FileWriter(databaseLocation + filename, false), ',');
+			csvOutput = new CsvWriter(new FileWriter(PATSystem.databasePath + filename, false), ',');
 			// if the file didn't already exist then we need to write out the header line
 			for (String st : headers) {
 				csvOutput.write(st);

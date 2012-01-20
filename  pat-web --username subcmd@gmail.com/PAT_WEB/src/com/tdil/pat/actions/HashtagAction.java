@@ -15,6 +15,9 @@ public class HashtagAction extends Action  {
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		HashtagForm hashtagForm = (HashtagForm) form;
+		if (hashtagForm.getOperation().equals("Guardar")) {
+			System.out.println("Guardar");
+		}
 		return mapping.findForward("continue");			
 
 	}
