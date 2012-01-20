@@ -37,7 +37,7 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.apache.catalina.startup.Bootstrap"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-config &quot;/home/mgodoy/icarus/workspace/simon/PAT_WEB/launch_conf/PAT_server-linux.xml&quot; start"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-config &quot;${workspace_loc}/PAT_WEB/launch_conf/PAT_server-linux.xml&quot; start"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value=""/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcatalina.home=${tomcat_home} -Djava.endorsed.dirs=${tomcat_home}&quot;/common/endorsed&quot; -Dcatalina.base=${tomcat_home} -Djava.io.tmpdir=${tomcat_home}&quot;/temp&quot; -Dcom.sun.management.jmxremote -Dfile.encoding=ISO-8859-1 -Xms128m -Xmx1G -XX:PermSize=128m -XX:MaxPermSize=256m -Dcom.sun.management.jmxremote  -Dpat.databaseLocation=${workspace_loc}/PAT_WEB/database/ -Dworkspace.location=${workspace_loc}"/>
 </launchConfiguration>
