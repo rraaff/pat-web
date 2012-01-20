@@ -36,8 +36,15 @@ public class TwitterCollector extends Thread {
 			if (this.isCollecting()) {
 				waitBeforeConnecting(connectAttemps);
 				LOG.warn("TwitterCollector starting to collect " + this.getTrack() + "-u" + username + ":" + password);
-				//AbstractTwitterStream abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
-				AbstractTwitterStream abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+				AbstractTwitterStream abstractTwitterStream = null;
+				// si empieza con # va de file
+				if (username.startsWith("#")) {
+					LOG.warn("TwitterCollector using file stream");
+					abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+				} else {
+					LOG.warn("TwitterCollector using Twitter");
+					abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+				}				
 				try {
 					abstractTwitterStream.connect();
 					String line;
