@@ -38,6 +38,12 @@ public class TwitterAccount {
 		instances = twitter;
 	}
 	
+	public static void modify(TwitterAccount twitterAccount) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<TwitterAccount> hashtags = new ArrayList<TwitterAccount>();
+		hashtags.add(twitterAccount);
+		modify(hashtags);
+	}
+	
 	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
 		LOG.fatal("reading twitter account");

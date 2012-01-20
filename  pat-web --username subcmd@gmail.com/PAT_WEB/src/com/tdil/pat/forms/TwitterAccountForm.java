@@ -8,19 +8,18 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
-import com.tdil.pat.model.Hashtag;
+import com.tdil.pat.model.TwitterAccount;
 
-public class HashtagForm extends ActionForm {
+public class TwitterAccountForm extends ActionForm {
 
 	private static final long serialVersionUID = 7670249948557986182L;
 
 	private String operation;
-	private Hashtag edited;
+	private TwitterAccount edited;
 	
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		super.reset(mapping, request);
-		getEdited().setFiltering(false);
 	}
 	public String getOperation() {
 		return operation;
@@ -29,11 +28,11 @@ public class HashtagForm extends ActionForm {
 		this.operation = operation;
 	}
 	
-	public Hashtag getEdited() {
+	public TwitterAccount getEdited() {
 		if (edited == null) {
-			edited = new Hashtag();
+			edited = new TwitterAccount();
 			try {
-				BeanUtils.copyProperties(edited, Hashtag.uniqueInstance());
+				BeanUtils.copyProperties(edited, TwitterAccount.uniqueInstance());
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -44,7 +43,7 @@ public class HashtagForm extends ActionForm {
 		}
 		return edited;
 	}
-	public void setEdited(Hashtag edited) {
+	public void setEdited(TwitterAccount edited) {
 		this.edited = edited;
 	}
 	

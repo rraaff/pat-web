@@ -30,22 +30,42 @@ public class DataSeparator extends Thread {
 				if (line == null) {
 					sleep(sleepWhenNoData);
 				} else {
-					twitter4j.internal.org.json.JSONObject jObject = new twitter4j.internal.org.json.JSONObject(line);
-					Status status = new StatusJSONImpl(jObject);
-					for (HashtagEntity hashtagEntity : status.getHashtagEntities()) {
-						String hashtagString = hashtagEntity.getText();
-						if (hashtagString.equals(hashtagForTweet)) {
-							if (Hashtag.uniqueInstance().approvesFilter(status)) {
-								Tweets.add(status, hashtagString);
+					boolean hashtagActive = Hashtag.uniqueInstance().isActive();
+					boolean pollActive = com.tdil.pat.model.Poll.uniqueInstance().isActive();
+					if (hashtagActive || pollActive) {
+						twitter4j.internal.org.json.JSONObject jObject = new twitter4j.internal.org.json.JSONObject(line);
+						Status status = new StatusJSONImpl(jObject);
+						for (HashtagEntity hashtagEntity : status.getHashtagEntities()) {
+							String hashtagString = hashtagEntity.getText();
+							if (hashtagString.equals(hashtagForTweet)) {
+								if (hashtagActive) {
+									if (Hashtag.uniqueInstance().approvesFilter(status)) {
+										Tweets.add(status, hashtagString);
+									} else {
+										if (LOG.isDebugEnabled()) {
+											LOG.debug("DataSeparator tweet rejected " + status.getText());
+										}
+									}
+								} else {
+									if (LOG.isDebugEnabled()) {
+										LOG.debug("DataSeparator hashtag inactive");
+									}
+								}
 							} else {
-								if (LOG.isDebugEnabled()) {
-									LOG.debug("DataSeparator tweet rejected " + status.getText());
+								if (pollActive) {
+									if (hashtagsForPoll.contains(hashtagString)) {
+										Poll.newData(hashtagString);
+									}
+								} else {
+									if (LOG.isDebugEnabled()) {
+										LOG.debug("DataSeparator poll inactive");
+									}
 								}
 							}
-						} else {
-							if (hashtagsForPoll.contains(hashtagString)) {
-								Poll.newData(hashtagString);
-							}
+						}
+					} else {
+						if (LOG.isDebugEnabled()) {
+							LOG.debug("DataSeparator hashtag and poll inactives");
 						}
 					}
 				}

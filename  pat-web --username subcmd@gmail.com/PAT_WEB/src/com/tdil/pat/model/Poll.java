@@ -47,6 +47,7 @@ public class Poll {
 	}
 	
 	public void setOptionsList(String optionsList) {
+		getOptions().clear();
 		String list[] = optionsList.split(",");
 		for (String opt : list) {
 			getOptions().add(opt);
@@ -81,6 +82,12 @@ public class Poll {
 
 	public static Poll uniqueInstance() {
 		return instances.get(0);
+	}
+	
+	public static void modify(Poll poll) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<Poll> hashtags = new ArrayList<Poll>();
+		hashtags.add(poll);
+		modify(hashtags);
 	}
 	
 	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,

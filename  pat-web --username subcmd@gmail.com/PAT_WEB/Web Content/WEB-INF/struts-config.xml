@@ -4,14 +4,28 @@
   <form-beans>
     <form-bean name="LoginForm" type="com.tdil.pat.forms.LoginForm"/>
     <form-bean name="HashtagForm" type="com.tdil.pat.forms.HashtagForm"/>
+    <form-bean name="TwitterAccountForm" type="com.tdil.pat.forms.TwitterAccountForm"/>
+    <form-bean name="PollForm" type="com.tdil.pat.forms.PollForm"/>
   </form-beans>
+  <global-forwards>
+    <forward name="login" path="/index.jsp"/>
+  </global-forwards>
   <action-mappings>
     <action path="/login" name="LoginForm" type="com.tdil.pat.actions.LoginAction" scope="request">
       <forward name="failure" path="/index.jsp"/>
       <forward name="continue" path="/home.jsp"/>
     </action>
+    <action path="/logout" type="com.tdil.pat.actions.LogoutAction" scope="request">
+      <forward name="login" path="/index.jsp"/>
+    </action>
     <action path="/hashtag" name="HashtagForm" type="com.tdil.pat.actions.HashtagAction" scope="request">
-      <forward name="continue" path="/home.jsp"/>
+      <forward name="continue" redirect="true" path="/home.jsp"/>
+    </action>
+    <action path="/poll" name="PollForm" type="com.tdil.pat.actions.PollAction" scope="request">
+      <forward name="continue" redirect="true" path="/home.jsp"/>
+    </action>
+    <action path="/twitterAccount" name="TwitterAccountForm" type="com.tdil.pat.actions.TwitterAccountAction" scope="request">
+      <forward name="continue" redirect="true" path="/home.jsp"/>
     </action>
   </action-mappings>
   <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
