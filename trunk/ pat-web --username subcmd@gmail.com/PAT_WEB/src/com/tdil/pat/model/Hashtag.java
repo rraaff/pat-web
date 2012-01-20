@@ -74,6 +74,12 @@ public class Hashtag {
 		instances = hashtags;
 	}
 	
+	public static void modify(Hashtag hashtag) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<Hashtag> hashtags = new ArrayList<Hashtag>();
+		hashtags.add(hashtag);
+		modify(hashtags);
+	}
+	
 	public static void main(String[] args) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
 		readAll();
 		Hashtag newhashtag = new Hashtag();

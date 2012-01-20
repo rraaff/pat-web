@@ -7,30 +7,33 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.tdil.pat.forms.HashtagForm;
-import com.tdil.pat.model.Hashtag;
+import com.tdil.pat.forms.PollForm;
+import com.tdil.pat.model.Poll;
 
-public class HashtagAction extends PATAction  {
+public class PollAction extends PATAction  {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		if (!validateLogin(request)) {
 			return mapping.findForward("login");
 		}
-		HashtagForm hashtagForm = (HashtagForm) form;
-		if (hashtagForm.getOperation().equals("Guardar")) {
-			Hashtag.modify(hashtagForm.getEdited());
+		PollForm PollForm = (PollForm) form;
+		if (PollForm.getOperation().equals("Guardar")) {
+			Poll.modify(PollForm.getEdited());
 		}
-		if (hashtagForm.getOperation().equals("Desactivar")) {
-			hashtagForm.getEdited().setActive(false);
-			Hashtag.modify(hashtagForm.getEdited());
+		if (PollForm.getOperation().equals("Desactivar")) {
+			PollForm.getEdited().setActive(false);
+			Poll.modify(PollForm.getEdited());
+			// reseto la encuesta???
 		}
-		if (hashtagForm.getOperation().equals("Activar")) {
-			hashtagForm.getEdited().setActive(true);
-			Hashtag.modify(hashtagForm.getEdited());
+		if (PollForm.getOperation().equals("Activar")) {
+			PollForm.getEdited().setActive(true);
+			Poll.modify(PollForm.getEdited());
+			// reseto la encuesta???
 		}
 		return mapping.findForward("continue");			
 
 	}
+
 
 }

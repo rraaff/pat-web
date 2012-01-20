@@ -1,2 +1,2 @@
 hashtag,active,filtering,filteringMode,refreshInterval,maxTweetsToAnswer
-TheresNoReason,true,true,REPLACE_WORD,30000,5
+TheresNoReason,true,false,REPLACE_WORD,30000,5

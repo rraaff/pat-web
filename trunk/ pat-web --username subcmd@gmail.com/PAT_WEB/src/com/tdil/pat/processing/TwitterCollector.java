@@ -1,14 +1,9 @@
 package com.tdil.pat.processing;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
-
-import sun.misc.BASE64Encoder;
 
 import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.model.Hashtag;
@@ -19,7 +14,8 @@ public class TwitterCollector extends Thread {
 
 	private String username;
 	private String password;
-	private String track = "TheresNoReason";
+	private String track = "";
+	private Set<String> options = new HashSet<String>();
 
 	private int connectAttemps = 0;
 
@@ -34,16 +30,18 @@ public class TwitterCollector extends Thread {
 			username = TwitterAccount.uniqueInstance().getUsername();
 			password = TwitterAccount.uniqueInstance().getPassword();
 			if (this.isCollecting()) {
+				this.setTrack(Hashtag.uniqueInstance().getHashtag());
+				// TODO las opciones
 				waitBeforeConnecting(connectAttemps);
-				LOG.warn("TwitterCollector starting to collect " + this.getTrack() + "-u" + username + ":" + password);
+				LOG.warn("TwitterCollector starting to collect " + this.getTrackData() + " -u" + username + ":" + password);
 				AbstractTwitterStream abstractTwitterStream = null;
 				// si empieza con # va de file
 				if (username.startsWith("#")) {
-					LOG.warn("TwitterCollector using file stream");
-					abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+					LOG.warn("TwitterCollector using fake file stream");
+					abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrackData());
 				} else {
-					LOG.warn("TwitterCollector using Twitter");
-					abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+					LOG.warn("TwitterCollector using real Twitter");
+					abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrackData());
 				}				
 				try {
 					abstractTwitterStream.connect();
@@ -70,6 +68,10 @@ public class TwitterCollector extends Thread {
 			}
 		}
 	}
+	
+	public String getTrackData() {
+		return this.getTrack(); // TODO las opciones
+	}
 
 	private void waitBeforeConnecting(int connectAttemps) {
 		try {
@@ -91,7 +93,9 @@ public class TwitterCollector extends Thread {
 	}
 
 	private boolean trackDataHasChanged() {
-		// TODO Auto-generated method stub
+		if (!this.getTrack().equals(Hashtag.uniqueInstance().getHashtag())) {
+			return true;
+		}
 		return false;
 	}
 
