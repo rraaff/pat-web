@@ -58,7 +58,7 @@ public class PATSystem implements ServletContextListener {
 		Hashtag.readAll();
 		Poll.readAll();
 		// TODO is file collector ... else // TODO TWITTER COLLECTOR
-		new FileCollector().start();
+		//new FileCollector().start();
 		new TwitterCollector().start();
 		new DataSeparator().start();
 	}

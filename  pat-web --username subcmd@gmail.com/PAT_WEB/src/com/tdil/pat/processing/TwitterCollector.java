@@ -35,19 +35,13 @@ public class TwitterCollector extends Thread {
 			password = TwitterAccount.uniqueInstance().getPassword();
 			if (this.isCollecting()) {
 				waitBeforeConnecting(connectAttemps);
-				HttpURLConnection connection = null;
 				LOG.warn("TwitterCollector starting to collect " + this.getTrack() + "-u" + username + ":" + password);
+				//AbstractTwitterStream abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
+				AbstractTwitterStream abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrack());
 				try {
-					URL url = new URL("https://stream.twitter.com/1/statuses/filter.json?track=" + this.getTrack());
-					String encoding = new BASE64Encoder().encode((this.getUsername() + ":" + this.getPassword()).getBytes());
-					connection = (HttpURLConnection) url.openConnection();
-					connection.setRequestMethod("POST");
-					connection.setDoOutput(true);
-					connection.setRequestProperty("Authorization", "Basic " + encoding);
-					InputStream content = (InputStream) connection.getInputStream();
-					BufferedReader in = new BufferedReader(new InputStreamReader(content));
+					abstractTwitterStream.connect();
 					String line;
-					while ((line = in.readLine()) != null && !this.requiresRestart()) {
+					while ((line = abstractTwitterStream.nextLine()) != null && !this.requiresRestart()) {
 						TwitterData.add(line);
 						//System.out.println(line);
 						connectAttemps = 0;
@@ -57,9 +51,7 @@ public class TwitterCollector extends Thread {
 					LOG.error(e.getMessage(), e);
 				} finally {
 					LOG.warn("TwitterCollector disconnecting");
-					if (connection != null) {
-						connection.disconnect();
-					}
+					abstractTwitterStream.disconnect();
 				}
 			} else {
 				try {
