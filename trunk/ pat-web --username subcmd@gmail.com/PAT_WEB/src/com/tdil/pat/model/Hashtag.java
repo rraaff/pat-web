@@ -7,8 +7,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import twitter4j.Status;
+
 import com.tdil.cvs.CVSUtils;
 import com.tdil.pat.LoggerProvider;
+import com.tdil.pat.text.FilterMode;
+import com.tdil.pat.text.FilterProfanity;
 
 public class Hashtag {
 
@@ -91,6 +95,19 @@ public class Hashtag {
 	
 	public static Hashtag uniqueInstance() {
 		return instances.get(0);
+	}
+	public boolean approvesFilter(Status status) {
+		if (this.isFiltering()) {
+			FilterProfanity filter = FilteredWord.getFilterProfanity();
+			filter.setFilterMode(filteringMode.equals(FilterMode.REPLACE_WORD.name()) ? FilterMode.REPLACE_WORD : FilterMode.REJECT_TEXT);
+			String result = filter.filterProfanity(status.getText());
+			if (result != null) {
+				status.setText(result);
+			}
+			return result != null;
+		} else {
+			return true;
+		}
 	}
 
 }

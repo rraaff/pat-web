@@ -6,11 +6,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
+
+import sun.misc.BASE64Encoder;
+
+import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.model.Poll;
 import com.tdil.pat.model.TwitterAccount;
-
-import sun.misc.BASE64Encoder;
 
 public class TwitterCollector extends Thread {
 
@@ -19,9 +22,10 @@ public class TwitterCollector extends Thread {
 	private String track = "TheresNoReason";
 
 	private int connectAttemps = 0;
-	private boolean restart = false;
 
 	private static final long sleepPerAttempt = 10000; // 10 seconds
+	
+	private static Logger LOG = LoggerProvider.getLogger(TwitterCollector.class);
 	
 	@Override
 	public void run() {
@@ -32,6 +36,7 @@ public class TwitterCollector extends Thread {
 			if (this.isCollecting()) {
 				waitBeforeConnecting(connectAttemps);
 				HttpURLConnection connection = null;
+				LOG.warn("TwitterCollector starting to collect " + this.getTrack() + "-u" + username + ":" + password);
 				try {
 					URL url = new URL("https://stream.twitter.com/1/statuses/filter.json?track=" + this.getTrack());
 					String encoding = new BASE64Encoder().encode((this.getUsername() + ":" + this.getPassword()).getBytes());
@@ -49,28 +54,30 @@ public class TwitterCollector extends Thread {
 					}
 				} catch (Exception e) {
 					connectAttemps = connectAttemps + 1;
-					e.printStackTrace();
+					LOG.error(e.getMessage(), e);
 				} finally {
+					LOG.warn("TwitterCollector disconnecting");
 					if (connection != null) {
 						connection.disconnect();
 					}
 				}
-			}
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else {
+				try {
+					LOG.warn("TwitterCollector not collecting, sleeping");
+					sleep(1000);
+				} catch (InterruptedException e) {
+					LOG.error(e.getMessage(), e);
+				}
 			}
 		}
 	}
 
 	private void waitBeforeConnecting(int connectAttemps) {
 		try {
+			LOG.warn("TwitterCollector waiting to connect " + (sleepPerAttempt * connectAttemps));
 			sleep(sleepPerAttempt * connectAttemps);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		}
 	}
 
@@ -121,14 +128,6 @@ public class TwitterCollector extends Thread {
 
 	public void setTrack(String track) {
 		this.track = track;
-	}
-
-	public boolean isRestart() {
-		return restart;
-	}
-
-	public void setRestart(boolean restart) {
-		this.restart = restart;
 	}
 
 	public int getConnectAttemps() {
