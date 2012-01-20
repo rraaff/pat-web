@@ -1,5 +1,6 @@
 package com.tdil.pat.text;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -15,11 +16,13 @@ public class FilterProfanity {
 	 * Array of all the bad words to filter.
 	 */
 	private Set<String> filterList = new HashSet<String>();
-
+	private Pattern pattern = Pattern.compile("([a-z|A-Z]+)");
 	/**
 	 * Indicates if case of words should be ignored.
 	 */
 	private boolean ignoreCase = true;
+	private FilterMode filterMode = FilterMode.REPLACE_WORD;
+
 
 	/**
 	 * Creates a new filter not associated with a message. This is generally
@@ -30,12 +33,15 @@ public class FilterProfanity {
 		super();
 	}
 
+	public void setFilterMode(FilterMode filterMode) {
+		this.filterMode = filterMode;
+	}
+
 	/**
 	 * Filters out bad words.
 	 */
 	public String filterProfanity(String str) {
 		StringBuffer ret_str = new StringBuffer(str.length());
-		Pattern pattern = Pattern.compile("([a-z|A-Z]+)");
 		Matcher matcher = pattern.matcher(str);
 		int start = 0;
 		while (matcher.find(start)) {
@@ -44,6 +50,9 @@ public class FilterProfanity {
 			if (check(word)) {
 				ret_str.append(word);
 			} else {
+				if (filterMode.equals(FilterMode.REJECT_TEXT)) {
+					return null;
+				}
 				ret_str.append(getMaskString(word.length()));
 			}
 			start = matcher.end(1);
@@ -67,8 +76,8 @@ public class FilterProfanity {
 		return str.toString();
 	}
 
-	public void setFilterList(String[] filterList) {
-		for (String s : filterList) {
+	public void setFilterList(Collection<String> list) {
+		for (String s : list) {
 			if (ignoreCase) {
 				this.filterList.add(s.toLowerCase());
 			} else {

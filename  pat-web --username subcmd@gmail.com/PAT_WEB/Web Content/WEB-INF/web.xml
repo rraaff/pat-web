@@ -43,6 +43,17 @@
     <servlet-name>TweetsServlet</servlet-name>
     <url-pattern>/getTweets.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PollServlet</servlet-name>
+    <servlet-class>com.tdil.pat.web.PollServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PollServlet</servlet-name>
+    <url-pattern>/getPoll.do</url-pattern>
+  </servlet-mapping>
 
   <taglib>
     <taglib-uri>/tags/struts-bean</taglib-uri>

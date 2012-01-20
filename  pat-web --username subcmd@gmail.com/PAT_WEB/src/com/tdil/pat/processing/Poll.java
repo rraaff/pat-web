@@ -1,19 +1,30 @@
 package com.tdil.pat.processing;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Poll {
 
-	private static Map<String, Integer> pollData = new ConcurrentHashMap<String, Integer>();
+	private static Map<String, AtomicInteger> pollData = new ConcurrentHashMap<String, AtomicInteger>();
 	
-	static {
-		pollData.put("SOPA", 0);
-		pollData.put("PIPA", 0);
-	}
 	public static void newData(String hashtagString) {
-		System.out.println("p+" + hashtagString);
-		pollData.put(hashtagString, pollData.get(hashtagString) + 1);
+		if (!pollData.containsKey(hashtagString)) {
+			pollData.put(hashtagString, new AtomicInteger(1));
+		} else {
+			pollData.get(hashtagString).incrementAndGet();
+		}
+	}
+	
+	public static void reset() {
+		pollData = new ConcurrentHashMap<String, AtomicInteger>();
+	} 
+	
+	public static Map<String, AtomicInteger> getPollData() {
+		Map<String, AtomicInteger> result = new HashMap<String, AtomicInteger>();
+		result.putAll(pollData);
+		return result;
 	}
 	
 }

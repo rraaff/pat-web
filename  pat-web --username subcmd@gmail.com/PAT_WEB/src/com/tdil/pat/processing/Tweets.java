@@ -13,8 +13,9 @@ public class Tweets {
 	private static Object mutex = new Object();
 
 	public static void add(Status status, String hashtag) {
-		System.out.println("t+" + hashtag);
+		//System.out.println("t+" + hashtag);
 		synchronized (mutex) {
+//			System.out.println("Adding " + index);
 			tweets[index] = status;
 			index = (index + 1) % 100;
 		}
@@ -29,6 +30,7 @@ public class Tweets {
 			currIndex = index - 1;
 			currIndex = currIndex < 0 ? 99 : currIndex;
 			tweets[currIndex] = null; // CORTE
+//			System.out.println("Nulling " + currIndex);
 		}
 		List<Status> result = new ArrayList<Status>();
 		int resultSize = 0;
