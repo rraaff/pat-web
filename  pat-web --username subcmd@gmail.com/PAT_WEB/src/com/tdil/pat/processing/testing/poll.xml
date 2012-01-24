@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <answer>
-	<question><![CDATA[Best f]]></question>
+	<question><![CDATA[Que carajo preferis?]]></question>
+	<refreshInterval>100</refreshInterval>
 	<options>
 		<option>
-			<name><![CDATA[PIPA]]></name>
-			<votes>1824</votes>
+			<name><![CDATA[10ManiasQueEuTenho]]></name>
+			<votes>3</votes>
 		</option>
 		<option>
-			<name><![CDATA[SOPA]]></name>
-			<votes>1995</votes>
+			<name><![CDATA[TheBestPartOfMyDayWas]]></name>
+			<votes>49</votes>
 		</option>
 	</options>
 </answer>
