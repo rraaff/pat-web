@@ -9,9 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import twitter4j.Status;
 import twitter4j.User;
 
+import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.PATSystem;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.processing.testing.ListRandom;
@@ -29,6 +32,8 @@ public class Tweets {
 
 	private static Object backupmutex = new Object();
 	private static Object mutex = new Object();
+	
+	public static Logger LOG = LoggerProvider.getLogger(Tweets.class);
 
 	public static void add(Status status, String hashtag) {
 		//System.out.println("t+" + hashtag);
@@ -109,10 +114,9 @@ public class Tweets {
 			buffOut.write("</answer>".getBytes());
 			buffOut.flush();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		} finally {
 			try {
 				fout.close();
@@ -142,7 +146,7 @@ public class Tweets {
 			}
 		}
 		if (result.size() < maxResultSize) {
-			System.out.println("not enough status, randomizing repeated");
+			LOG.warn("not enough status, randomizing repeated");
 			if (backupSize > 0) {
 				List<Status> random = new ArrayList<Status>();
 				for (int i = 0; i < backupSize; i++) {
