@@ -12,8 +12,11 @@ public class Poll {
 	private String name;
 	private boolean active;
 	private List<String> options = new ArrayList<String>();
+	private long refreshInterval;
+	
+	private static final long MIN_REFRESH = 100;
 
-	private static String headers[] = { "name", "active", "optionsList" };
+	private static String headers[] = { "name", "active", "optionsList", "refreshInterval" };
 	private static List<Poll> instances = new ArrayList<Poll>();
 
 	public String getName() {
@@ -93,6 +96,18 @@ public class Poll {
 	public static void readAll() throws IOException, IllegalAccessException, InvocationTargetException,
 			InstantiationException {
 		CVSUtils.read("poll.csv", headers, Poll.class, instances);
+	}
+
+	public long getRefreshInterval() {
+		return refreshInterval;
+	}
+
+	public void setRefreshInterval(long refreshInterval) {
+		if (refreshInterval < MIN_REFRESH) {
+			this.refreshInterval = MIN_REFRESH;
+		} else {
+			this.refreshInterval = refreshInterval;
+		}
 	}
 
 }

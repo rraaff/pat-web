@@ -1,2 +1,2 @@
-name,active,optionsList
-Que carajo preferis?,true,"PIPA,SOPA"
+name,active,optionsList,refreshInterval
+Que carajo preferis?,true,"TWBattleground,ileal",100

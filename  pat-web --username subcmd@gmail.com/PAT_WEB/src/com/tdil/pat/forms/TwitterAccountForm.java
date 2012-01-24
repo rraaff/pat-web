@@ -5,9 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.model.TwitterAccount;
 
 public class TwitterAccountForm extends ActionForm {
@@ -16,6 +18,8 @@ public class TwitterAccountForm extends ActionForm {
 
 	private String operation;
 	private TwitterAccount edited;
+	
+	private static Logger LOG = LoggerProvider.getLogger(TwitterAccountForm.class);
 	
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -34,11 +38,9 @@ public class TwitterAccountForm extends ActionForm {
 			try {
 				BeanUtils.copyProperties(edited, TwitterAccount.uniqueInstance());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			}
 		}
 		return edited;

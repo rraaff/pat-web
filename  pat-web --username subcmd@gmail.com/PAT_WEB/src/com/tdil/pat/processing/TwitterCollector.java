@@ -1,8 +1,5 @@
 package com.tdil.pat.processing;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 
 import com.tdil.pat.LoggerProvider;
@@ -14,8 +11,8 @@ public class TwitterCollector extends Thread {
 
 	private String username;
 	private String password;
-	private String track = "";
-	private Set<String> options = new HashSet<String>();
+	private String hashtag = null;
+	private String options = null;
 
 	private int connectAttemps = 0;
 
@@ -30,8 +27,12 @@ public class TwitterCollector extends Thread {
 			username = TwitterAccount.uniqueInstance().getUsername();
 			password = TwitterAccount.uniqueInstance().getPassword();
 			if (this.isCollecting()) {
-				this.setTrack(Hashtag.uniqueInstance().getHashtag());
-				// TODO las opciones
+				if (Hashtag.uniqueInstance().isActive() || this.getHashtag() == null) {
+					this.setHashtag(Hashtag.uniqueInstance().getHashtag());
+				}
+				if (Poll.uniqueInstance().isActive() || this.getOptions() == null) {
+					this.setOptions(Poll.uniqueInstance().getOptionsList());
+				}
 				waitBeforeConnecting(connectAttemps);
 				LOG.warn("TwitterCollector starting to collect " + this.getTrackData() + " -u" + username + ":" + password);
 				AbstractTwitterStream abstractTwitterStream = null;
@@ -70,7 +71,7 @@ public class TwitterCollector extends Thread {
 	}
 	
 	public String getTrackData() {
-		return this.getTrack(); // TODO las opciones
+		return this.getHashtag() + "," + this.getOptions();
 	}
 
 	private void waitBeforeConnecting(int connectAttemps) {
@@ -93,7 +94,10 @@ public class TwitterCollector extends Thread {
 	}
 
 	private boolean trackDataHasChanged() {
-		if (!this.getTrack().equals(Hashtag.uniqueInstance().getHashtag())) {
+		if (Hashtag.uniqueInstance().isActive() && !this.getHashtag().equals(Hashtag.uniqueInstance().getHashtag())) {
+			return true;
+		}
+		if (Poll.uniqueInstance().isActive() && !this.getOptions().equals(Poll.uniqueInstance().getOptionsList())) {
 			return true;
 		}
 		return false;
@@ -125,12 +129,12 @@ public class TwitterCollector extends Thread {
 		this.password = password;
 	}
 
-	public String getTrack() {
-		return track;
+	public String getHashtag() {
+		return hashtag;
 	}
 
-	public void setTrack(String track) {
-		this.track = track;
+	public void setHashtag(String track) {
+		this.hashtag = track;
 	}
 
 	public int getConnectAttemps() {
@@ -143,6 +147,14 @@ public class TwitterCollector extends Thread {
 
 	public boolean isCollecting() {
 		return Hashtag.uniqueInstance().isActive() || Poll.uniqueInstance().isActive();
+	}
+
+	public String getOptions() {
+		return options;
+	}
+
+	public void setOptions(String options) {
+		this.options = options;
 	}
 
 }
