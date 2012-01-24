@@ -17,9 +17,9 @@ import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.model.Poll;
 import com.tdil.pat.model.TwitterAccount;
 import com.tdil.pat.model.User;
+import com.tdil.pat.processing.BackupThread;
 import com.tdil.pat.processing.DataSeparator;
 import com.tdil.pat.processing.TwitterCollector;
-import com.tdil.pat.processing.testing.FileCollector;
 
 public class PATSystem implements ServletContextListener {
 
@@ -57,10 +57,9 @@ public class PATSystem implements ServletContextListener {
 		TwitterAccount.readAll();
 		Hashtag.readAll();
 		Poll.readAll();
-		// TODO is file collector ... else // TODO TWITTER COLLECTOR
-		//new FileCollector().start();
 		new TwitterCollector().start();
 		new DataSeparator().start();
+		new BackupThread().start();
 	}
 	
 	private static void initLogger() {

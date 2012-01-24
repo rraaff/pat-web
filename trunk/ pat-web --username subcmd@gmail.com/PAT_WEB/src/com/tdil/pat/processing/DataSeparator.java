@@ -70,7 +70,7 @@ public class DataSeparator extends Thread {
 					}
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				LOG.error(e.getMessage(), e);
 			}
 		}
 	}

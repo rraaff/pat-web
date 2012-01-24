@@ -22,11 +22,13 @@ public class Hashtag {
 	private String filteringMode;
 	
 	private long refreshInterval;
+	private long readingInterval;
 	private int maxTweetsToAnswer;
 	
-	// todo agregar refresh time y max cantidad a retornar
-
-	private static String headers[] = {"hashtag","active","filtering","filteringMode","refreshInterval","maxTweetsToAnswer"};
+	private static final long MIN_READING = 1000;
+	private static final long MIN_REFRESH = 100;
+	
+	private static String headers[] = {"hashtag","active","filtering","filteringMode","refreshInterval","readingInterval","maxTweetsToAnswer"};
 	private static List<Hashtag> instances = new ArrayList<Hashtag>();
 	
 	private static Logger LOG = LoggerProvider.getLogger(Hashtag.class);
@@ -60,13 +62,21 @@ public class Hashtag {
 		return refreshInterval;
 	}
 	public void setRefreshInterval(long refreshInterval) {
-		this.refreshInterval = refreshInterval;
+		if (refreshInterval < MIN_REFRESH) {
+			this.refreshInterval = MIN_REFRESH;
+		} else {
+			this.refreshInterval = refreshInterval;
+		}
 	}
 	public int getMaxTweetsToAnswer() {
 		return maxTweetsToAnswer;
 	}
 	public void setMaxTweetsToAnswer(int maxTweetsToAnswer) {
-		this.maxTweetsToAnswer = maxTweetsToAnswer;
+		if (maxTweetsToAnswer <= 0) {
+			this.maxTweetsToAnswer = 1;
+		} else {
+			this.maxTweetsToAnswer = maxTweetsToAnswer;
+		}
 	}
 	
 	public static void modify(List<Hashtag> hashtags) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -113,6 +123,16 @@ public class Hashtag {
 			return result != null;
 		} else {
 			return true;
+		}
+	}
+	public long getReadingInterval() {
+		return readingInterval;
+	}
+	public void setReadingInterval(long readingInterval) {
+		if(readingInterval < MIN_READING) {
+			this.readingInterval = MIN_READING;
+		} else {
+			this.readingInterval = readingInterval;
 		}
 	}
 

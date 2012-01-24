@@ -14,6 +14,7 @@ public class TwitterAccount {
 
 	private String username;
 	private String password;
+	// TODO HTTPS
 	
 	private static String headers[] = {"username","password"};
 	private static List<TwitterAccount> instances = new ArrayList<TwitterAccount>();

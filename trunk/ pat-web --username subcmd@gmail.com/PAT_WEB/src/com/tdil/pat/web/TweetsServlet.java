@@ -52,6 +52,9 @@ public class TweetsServlet extends HttpServlet {
 		out.append("<refreshInterval>");
 		out.append(String.valueOf(Hashtag.uniqueInstance().getRefreshInterval()));
 		out.append("</refreshInterval>");
+		out.append("<readingInterval>");
+		out.append(String.valueOf(Hashtag.uniqueInstance().getReadingInterval()));
+		out.append("</readingInterval>");
 		out.append("<tweets>");
 		for (Status status : answer) {
 			out.append("<tweet>");

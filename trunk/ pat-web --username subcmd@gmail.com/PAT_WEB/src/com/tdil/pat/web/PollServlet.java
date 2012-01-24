@@ -40,6 +40,9 @@ public class PollServlet extends HttpServlet {
 		out.append("<question>").append(TweetsServlet.CDATA_START_TAG);
 		out.append(String.valueOf(Poll.uniqueInstance().getName()));
 		out.append(TweetsServlet.CDATA_END_TAG).append("</question>");
+		out.append("<refreshInterval>");
+		out.append(String.valueOf(Poll.uniqueInstance().getRefreshInterval()));
+		out.append("</refreshInterval>");
 		out.append("<options>");
 		Map<String, AtomicInteger> currentData = com.tdil.pat.processing.Poll.getPollData();
 		for (String option : Poll.uniqueInstance().getOptions()) {

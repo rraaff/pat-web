@@ -1,2 +1,2 @@
-hashtag,active,filtering,filteringMode,refreshInterval,maxTweetsToAnswer
-TheresNoReason,true,false,REPLACE_WORD,30000,5
+hashtag,active,filtering,filteringMode,refreshInterval,readingInterval,maxTweetsToAnswer
+AsAKid,true,false,REPLACE_WORD,3000,2000,10

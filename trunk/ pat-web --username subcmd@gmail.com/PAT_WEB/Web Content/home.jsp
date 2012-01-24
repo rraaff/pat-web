@@ -61,6 +61,10 @@ Bienvenido: <%=user.getUsername()%> - <a href="./logout.do">Logout</a>
 		</td>
 	</tr>
 	<tr>
+		<td>Refresco (milisegundos):</td>
+		<td><html:text name="PollForm" property="edited.refreshInterval"/></td>
+	</tr>
+	<tr>
 		<td>Opciones:</td>
 		<td><logic:equal name="PollForm" property="edited.active" value="true">
 				<html:text name="PollForm" property="edited.optionsList" disabled="true"/>
@@ -108,9 +112,22 @@ Bienvenido: <%=user.getUsername()%> - <a href="./logout.do">Logout</a>
 		</td>
 	</tr>
 	<tr>
+		<td>Refresco (milisegundos):</td>
+		<td><html:text name="HashtagForm" property="edited.refreshInterval"/></td>
+	</tr>
+	<tr>
+		<td>Lectura (milisegundos):</td>
+		<td><html:text name="HashtagForm" property="edited.readingInterval"/></td>
+	</tr>
+	<tr>
+		<td>Tweets por refresco:</td>
+		<td><html:text name="HashtagForm" property="edited.maxTweetsToAnswer"/></td>
+	</tr>
+	<tr>
 		<td>Filtro de groserias activo:</td>
 		<td><html:checkbox name="HashtagForm" property="edited.filtering"/></td>
 	</tr>
+	
 	<tr>
 		<td>Tipo de filtro:</td>
 		<td><html:select name="HashtagForm" property="edited.filteringMode" styleClass="textfield_effect">

@@ -35,7 +35,6 @@ public class TwitterStream extends AbstractTwitterStream {
 		if (connection != null) {
 			connection.disconnect();
 		}
-
 	}
 
 	@Override

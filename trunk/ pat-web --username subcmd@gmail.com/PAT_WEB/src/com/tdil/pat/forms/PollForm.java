@@ -5,9 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.model.Poll;
 
 public class PollForm extends ActionForm {
@@ -16,6 +18,8 @@ public class PollForm extends ActionForm {
 
 	private String operation;
 	private Poll edited;
+	
+	private static Logger LOG = LoggerProvider.getLogger(PollForm.class);
 	
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -35,11 +39,9 @@ public class PollForm extends ActionForm {
 			try {
 				BeanUtils.copyProperties(edited, Poll.uniqueInstance());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			}
 		}
 		return edited;
