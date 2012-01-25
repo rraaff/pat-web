@@ -30,7 +30,7 @@ public class PATSystem implements ServletContextListener {
 			databasePath = System.getProperty("pat.databaseLocation");
 			startup();
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 		}
 	}
 	
