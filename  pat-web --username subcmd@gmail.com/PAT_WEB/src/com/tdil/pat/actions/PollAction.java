@@ -29,7 +29,7 @@ public class PollAction extends PATAction  {
 		if (PollForm.getOperation().equals("Activar")) {
 			PollForm.getEdited().setActive(true);
 			Poll.modify(PollForm.getEdited());
-			// reseto la encuesta???
+			com.tdil.pat.processing.Poll.reset();
 		}
 		return mapping.findForward("continue");			
 
