@@ -1,0 +1,18 @@
+<project name="Simon" default="makeWar" basedir=".">
+	
+	<property name="workspace_loc" value="../"></property>
+	
+	<target name="makeWar">
+		<delete file="./PAT_WEB.war"></delete>
+		<war destfile="./PAT_WEB.war" basedir="${workspace_loc}/PAT_WEB/Web Content/" webxml="${workspace_loc}/PAT_WEB/Web Content/WEB-INF/web.xml">
+			<exclude name="**/database/**"/>
+			<exclude name="**/launch_conf/**"/>
+			<exclude name="**/build.xml"/>
+			<exclude name="**/javacsv2.1-src.zip"/>
+			<exclude name="**/.amateras"/>
+			<exclude name="**/.project"/>
+			<exclude name="**/.classpath"/>
+			<exclude name="**/work/**"/>
+		</war>
+	</target>
+</project>

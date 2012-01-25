@@ -17,5 +17,5 @@
 	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/struts.jar"/>
 	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
 	<classpathentry exported="true" kind="lib" path="Web Content/WEB-INF/lib/commons-lang.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="Web Content/WEB-INF/classes"/>
 </classpath>
