@@ -18,6 +18,11 @@ public class DataSeparator extends Thread {
 	
 	private static Logger LOG = LoggerProvider.getLogger(DataSeparator.class);
 	
+	
+	public DataSeparator() {
+		super("DataSeparator");
+	}
+	
 	@Override
 	public void run() {
 		while (true) {
@@ -43,12 +48,12 @@ public class DataSeparator extends Thread {
 										Tweets.add(status, hashtagString);
 									} else {
 										if (LOG.isDebugEnabled()) {
-											LOG.debug("DataSeparator tweet rejected " + status.getText());
+											LOG.debug("tweet rejected " + status.getText());
 										}
 									}
 								} else {
 									if (LOG.isDebugEnabled()) {
-										LOG.debug("DataSeparator hashtag inactive");
+										LOG.debug("hashtag inactive");
 									}
 								}
 							} else {
@@ -58,14 +63,14 @@ public class DataSeparator extends Thread {
 									}
 								} else {
 									if (LOG.isDebugEnabled()) {
-										LOG.debug("DataSeparator poll inactive");
+										LOG.debug("poll inactive");
 									}
 								}
 							}
 						}
 					} else {
 						if (LOG.isDebugEnabled()) {
-							LOG.debug("DataSeparator hashtag and poll inactives");
+							LOG.debug("hashtag and poll inactives");
 						}
 					}
 				}
