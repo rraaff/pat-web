@@ -30,6 +30,7 @@ public class Tweets {
 	private static int backupIndex = 0;
 	private static Status backup[] = new Status[BACKUP_SIZE];
 
+	private static boolean needsBackup = false;
 	private static Object backupmutex = new Object();
 	private static Object mutex = new Object();
 	
@@ -44,6 +45,9 @@ public class Tweets {
 		}
 		synchronized (backupmutex) {
 			backup[backupIndex] = status;
+			if (backupIndex + 1 == BACKUP_SIZE) {
+				needsBackup = true;
+			}
 		}
 		backupSize = backupSize + 1;
 		if (backupSize > BACKUP_SIZE) {
@@ -53,7 +57,7 @@ public class Tweets {
 	}
 
 	public static void writeBackupToDisk()  {
-		if (backupSize < BACKUP_SIZE) {
+		if (!needsBackup) {
 			BackupThread.LOG.warn("Nothing to backup");
 			return;
 		}
@@ -113,6 +117,7 @@ public class Tweets {
 			buffOut.write("</tweets>".getBytes());
 			buffOut.write("</answer>".getBytes());
 			buffOut.flush();
+			needsBackup = false;
 		} catch (FileNotFoundException e) {
 			LOG.error(e.getMessage(), e);
 		} catch (IOException e) {

@@ -10,6 +10,10 @@ public class BackupThread extends Thread {
 	
 	public static Logger LOG = LoggerProvider.getLogger(BackupThread.class);
 	
+	public BackupThread() {
+		super("BackupThread");
+	}
+	
 	@Override
 	public void run() {
 		while (true) {

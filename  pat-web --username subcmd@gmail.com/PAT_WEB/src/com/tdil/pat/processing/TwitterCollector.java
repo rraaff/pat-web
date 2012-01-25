@@ -20,6 +20,10 @@ public class TwitterCollector extends Thread {
 	
 	private static Logger LOG = LoggerProvider.getLogger(TwitterCollector.class);
 	
+	public TwitterCollector() {
+		super("TwitterCollector");
+	}
+	
 	@Override
 	public void run() {
 		while (true) {
@@ -34,14 +38,14 @@ public class TwitterCollector extends Thread {
 					this.setOptions(Poll.uniqueInstance().getOptionsList());
 				}
 				waitBeforeConnecting(connectAttemps);
-				LOG.warn("TwitterCollector starting to collect " + this.getTrackData() + " -u" + username + ":" + password);
+				LOG.warn("starting to collect " + this.getTrackData() + " -u" + username + ":" + password);
 				AbstractTwitterStream abstractTwitterStream = null;
 				// si empieza con # va de file
 				if (username.startsWith("#")) {
-					LOG.warn("TwitterCollector using fake file stream");
+					LOG.warn("using fake file stream");
 					abstractTwitterStream = new FileTwitterStream(this.getUsername(), this.getPassword(), this.getTrackData());
 				} else {
-					LOG.warn("TwitterCollector using real Twitter");
+					LOG.warn("using real Twitter");
 					abstractTwitterStream = new TwitterStream(this.getUsername(), this.getPassword(), this.getTrackData());
 				}				
 				try {
@@ -56,12 +60,12 @@ public class TwitterCollector extends Thread {
 					connectAttemps = connectAttemps + 1;
 					LOG.error(e.getMessage(), e);
 				} finally {
-					LOG.warn("TwitterCollector disconnecting");
+					LOG.warn("disconnecting");
 					abstractTwitterStream.disconnect();
 				}
 			} else {
 				try {
-					LOG.warn("TwitterCollector not collecting, sleeping");
+					LOG.warn("not collecting, sleeping");
 					sleep(1000);
 				} catch (InterruptedException e) {
 					LOG.error(e.getMessage(), e);
@@ -76,7 +80,7 @@ public class TwitterCollector extends Thread {
 
 	private void waitBeforeConnecting(int connectAttemps) {
 		try {
-			LOG.warn("TwitterCollector waiting to connect " + (sleepPerAttempt * connectAttemps));
+			LOG.warn("waiting to connect " + (sleepPerAttempt * connectAttemps));
 			sleep(sleepPerAttempt * connectAttemps);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage(), e);
