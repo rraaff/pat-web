@@ -56,6 +56,15 @@ public class Tweets {
 		}
 		backupIndex = (backupIndex + 1) % BACKUP_SIZE;
 	}
+	
+	public static void resetbackup() {
+		synchronized (backupmutex) {
+			backupSize = 0;
+			backupIndex = 0;
+			backup = new Status[BACKUP_SIZE];
+			needsBackup = false;
+		}
+	}
 
 	public static void writeBackupToDisk()  {
 		if (!needsBackup) {
