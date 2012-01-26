@@ -41,6 +41,20 @@ public class Poll {
 		int index = 0;
 		int max = getOptions().size();
 		for (String st : getOptions()) {
+			result.append(st);
+			if (index < max - 1) {
+				result.append(",");
+			}
+			index = index + 1;
+		}
+		return result.toString();
+	}
+	
+	public String getOptionsListUTF() {
+		StringBuffer result = new StringBuffer();
+		int index = 0;
+		int max = getOptions().size();
+		for (String st : getOptions()) {
 			result.append(URLEncoder.encode(st));
 			if (index < max - 1) {
 				result.append(",");

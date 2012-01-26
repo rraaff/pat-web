@@ -38,7 +38,7 @@ public class TwitterCollector extends Thread {
 					this.setHashtag(Hashtag.uniqueInstance().getHashtag());
 				}
 				if (Poll.uniqueInstance().isActive() || this.getOptions() == null) {
-					this.setOptions(Poll.uniqueInstance().getOptionsList());
+					this.setOptions(Poll.uniqueInstance().getOptionsListUTF());
 				}
 				waitBeforeConnecting(connectAttemps);
 				LOG.warn("starting to collect " + this.getTrackData() + " -u" + username + ":" + password);
@@ -104,7 +104,7 @@ public class TwitterCollector extends Thread {
 		if (Hashtag.uniqueInstance().isActive() && !this.getHashtag().equals(Hashtag.uniqueInstance().getHashtag())) {
 			return true;
 		}
-		if (Poll.uniqueInstance().isActive() && !this.getOptions().equals(Poll.uniqueInstance().getOptionsList())) {
+		if (Poll.uniqueInstance().isActive() && !this.getOptions().equals(Poll.uniqueInstance().getOptionsListUTF())) {
 			return true;
 		}
 		return false;
