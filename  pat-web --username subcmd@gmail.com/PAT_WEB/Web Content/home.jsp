@@ -29,8 +29,8 @@ Bienvenido: <%=user.getUsername()%> - <a href="./logout.do">Logout</a>
 		</td>
 	</tr>
 	<tr>
-		<td>Usuario:</td>
-		<td>
+		<td>Contrase&ntilde;a:</td>
+  <td>
 			<html:text name="TwitterAccountForm" property="edited.password"/>
 		</td>
 	</tr>
@@ -154,6 +154,8 @@ Bienvenido: <%=user.getUsername()%> - <a href="./logout.do">Logout</a>
 						<logic:equal name="HashtagForm" property="edited.active" value="false">
 						<html:submit property="operation">Activar</html:submit>
 						</logic:equal></td>
+                    <td width="30"></td>
+                    <td width="150"><a href="screen.html" target="_blank">Iniciar pantalla</a></td>
 				</tr>
 			</table>
 		</td>
