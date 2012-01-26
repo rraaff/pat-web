@@ -2,6 +2,7 @@ package com.tdil.pat.model;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Poll {
 		int index = 0;
 		int max = getOptions().size();
 		for (String st : getOptions()) {
-			result.append(st);
+			result.append(URLEncoder.encode(st));
 			if (index < max - 1) {
 				result.append(",");
 			}
@@ -63,6 +64,14 @@ public class Poll {
 
 	public List<String> getOptions() {
 		return options;
+	}
+	
+	public List<String> getOptionsUpperCase() {
+		List<String> result = new ArrayList<String>();
+		for (String st : options) {
+			result.add(st.toUpperCase());
+		}
+		return result;
 	}
 	
 	public void setOptions(List<String> options) {

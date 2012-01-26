@@ -26,13 +26,14 @@ public class DataSeparator extends Thread {
 	@Override
 	public void run() {
 		while (true) {
+			String line = "";
 			try {
 				// esto tendria que esar afuera de otro loop interno?
 				String hashtagForTweet = Hashtag.uniqueInstance().getHashtag();
 				Set<String> hashtagsForPoll = new HashSet<String>(); 
-				hashtagsForPoll.addAll(com.tdil.pat.model.Poll.uniqueInstance().getOptions());
-				String line = TwitterData.remove();
-				if (line == null) {
+				hashtagsForPoll.addAll(com.tdil.pat.model.Poll.uniqueInstance().getOptionsUpperCase());
+				line = TwitterData.remove();
+				if (line == null || line.isEmpty()) {
 					sleep(sleepWhenNoData);
 				} else {
 					boolean hashtagActive = Hashtag.uniqueInstance().isActive();
@@ -42,7 +43,7 @@ public class DataSeparator extends Thread {
 						Status status = new StatusJSONImpl(jObject);
 						for (HashtagEntity hashtagEntity : status.getHashtagEntities()) {
 							String hashtagString = hashtagEntity.getText();
-							if (hashtagString.equals(hashtagForTweet)) {
+							if (hashtagString.equalsIgnoreCase(hashtagForTweet)) {
 								if (hashtagActive) {
 									if (Hashtag.uniqueInstance().approvesFilter(status)) {
 										Tweets.add(status, hashtagString);
@@ -58,7 +59,7 @@ public class DataSeparator extends Thread {
 								}
 							} else {
 								if (pollActive) {
-									if (hashtagsForPoll.contains(hashtagString)) {
+									if (hashtagsForPoll.contains(hashtagString.toUpperCase())) {
 										Poll.newData(hashtagString);
 									}
 								} else {
@@ -76,6 +77,7 @@ public class DataSeparator extends Thread {
 				}
 			} catch (Exception e) {
 				LOG.error(e.getMessage(), e);
+				LOG.error("**" + line + "**");
 			}
 		}
 	}
