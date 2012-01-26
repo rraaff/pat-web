@@ -55,6 +55,9 @@ public class PollServlet extends HttpServlet {
 			if (atomicInteger != null) {
 				votes = atomicInteger.intValue();
 			}
+			if (votes == 0) {
+				votes = 1;
+			}
 			out.append("<votes>");
 			out.append(String.valueOf(votes));
 			out.append("</votes>");
