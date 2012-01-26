@@ -37,6 +37,10 @@ public class Hashtag {
 		return hashtag;
 	}
 	public void setHashtag(String hashtag) {
+		if (hashtag != null) {
+			hashtag = hashtag.replace(" ", "");
+			hashtag = hashtag.replace("#", "");
+		}
 		this.hashtag = hashtag;
 	}
 	public boolean isActive() {
