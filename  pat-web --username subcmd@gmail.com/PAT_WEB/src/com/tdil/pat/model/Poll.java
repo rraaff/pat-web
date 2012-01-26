@@ -50,6 +50,10 @@ public class Poll {
 	}
 	
 	public void setOptionsList(String optionsList) {
+		if (optionsList != null) {
+			optionsList = optionsList.replace(" ", "");
+			optionsList = optionsList.replace("#", "");
+		}
 		getOptions().clear();
 		String list[] = optionsList.split(",");
 		for (String opt : list) {
