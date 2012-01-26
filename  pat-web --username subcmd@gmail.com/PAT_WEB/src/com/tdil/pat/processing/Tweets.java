@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -163,6 +164,7 @@ public class Tweets {
 				}
 			}
 		}
+		Collections.reverse(result);
 		return result;
 	}
 
