@@ -1,5 +1,8 @@
 package com.tdil.pat.processing;
 
+import java.net.URLEncoder;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.tdil.pat.LoggerProvider;
@@ -75,7 +78,7 @@ public class TwitterCollector extends Thread {
 	}
 	
 	public String getTrackData() {
-		return this.getHashtag() + "," + this.getOptions();
+		return URLEncoder.encode(this.getHashtag()) + "," + this.getOptions();
 	}
 
 	private void waitBeforeConnecting(int connectAttemps) {
