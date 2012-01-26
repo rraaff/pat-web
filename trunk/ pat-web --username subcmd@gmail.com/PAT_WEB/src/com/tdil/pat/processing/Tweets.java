@@ -58,6 +58,10 @@ public class Tweets {
 	}
 	
 	public static void resetbackup() {
+		synchronized (mutex) {
+			index = 0;
+			tweets = new Status[100];
+		}
 		synchronized (backupmutex) {
 			backupSize = 0;
 			backupIndex = 0;
