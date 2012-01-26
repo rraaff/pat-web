@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pieChart stTitle="test" stSubTitle="base" titlesColor="0x000000" xTitle="0" yTitle="10" xChart="0" yChart="0" wChart="150" hChart="90" nbDepth="20" nbMove="0.05" showLabels="false" xLabels="170" yLabels="50" ttColor="0x000000" speed="0.8" synchronized="false" esWedge="Regular.easeIn" esMove="Regular.easeOut">
+	<serie name="color 1" value="80"  topColor="0xff414c" lightColor="0x9f161e" frontColor="0xeb1c24" sideColor="0x6b0206" />
+	<serie name="color 2" value="50"  topColor="0xfce8ab" lightColor="0xd2a212" frontColor="0xf7d878" sideColor="0xa37d09" />
+	<serie name="color 3" value="100" topColor="0xdbc6f0" lightColor="0x9062bd" frontColor="0xcbace9" sideColor="0x3d2851" />
+	<serie name="color 4" value="70"  topColor="0xa6d8d8" lightColor="0x188585" frontColor="0x6fbebe" sideColor="0x005a5a" />
+	<serie name="color 5" value="60"  topColor="0x446ac3" lightColor="0x26448b" frontColor="0x6d84bc" sideColor="0x26448b" />
+	<serie name="color 6" value="60"  topColor="0xd7e7a6" lightColor="0x799f0a" frontColor="0xbdd771" sideColor="0x334500" />
+</pieChart>
