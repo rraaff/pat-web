@@ -22,9 +22,10 @@ public class FileTwitterStream extends AbstractTwitterStream {
 	public void connect() throws Exception {
 		lines = new ArrayList<String>();
 		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets.txt"))); // muchos sin hashtag
-		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets1.txt"))); // solo hashtag
+		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets1.txt"))); // solo hashtag, 1..10 TheresNoReason
 		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets2.txt"))); // hashtags and polls
 		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets3.txt"))); // puteadas
+		lines.addAll(IOUtils.readLines(FileCollector.class.getResourceAsStream("tweets4.txt"))); // spanish
 		new ListRandom(lines.size()).randomize(lines); // random
 	}
 

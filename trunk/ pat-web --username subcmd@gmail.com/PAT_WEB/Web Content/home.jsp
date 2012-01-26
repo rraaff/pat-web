@@ -126,6 +126,11 @@ Bienvenido: <%=user.getUsername()%> - <a href="./logout.do">Logout</a>
 	<tr>
 		<td>Filtro de groserias activo:</td>
 		<td><html:checkbox name="HashtagForm" property="edited.filtering"/></td>
+		<% if (com.tdil.pat.model.Hashtag.uniqueInstance().isFiltering()) { %>
+			<script>
+				document.getElementsByName("edited.filtering")[0].checked = true;
+			</script>
+		<% } %>
 	</tr>
 	
 	<tr>
