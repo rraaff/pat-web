@@ -44,6 +44,11 @@
     <url-pattern>/getTweets.do</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>TweetsServlet</servlet-name>
+    <url-pattern>/getTweets.xml</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>PollServlet</servlet-name>
     <servlet-class>com.tdil.pat.web.PollServlet</servlet-class>
@@ -53,6 +58,11 @@
   <servlet-mapping>
     <servlet-name>PollServlet</servlet-name>
     <url-pattern>/getPoll.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PollServlet</servlet-name>
+    <url-pattern>/getPoll.xml</url-pattern>
   </servlet-mapping>
 
   <taglib>
