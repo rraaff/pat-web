@@ -1,2 +1,2 @@
 hashtag,active,filtering,filteringMode,refreshInterval,readingInterval,maxTweetsToAnswer
-AsAKid,true,false,REPLACE_WORD,3000,2000,10
+WhoCaresIf,true,false,REJECT_TEXT,3000,1000,10
