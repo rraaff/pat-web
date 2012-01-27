@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 
@@ -17,6 +18,7 @@ import twitter4j.User;
 
 import com.tdil.pat.LoggerProvider;
 import com.tdil.pat.PATSystem;
+import com.tdil.pat.model.FakeTweet;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.processing.testing.ListRandom;
 import com.tdil.pat.web.TweetsServlet;
@@ -34,6 +36,8 @@ public class Tweets {
 	private static boolean needsBackup = false;
 	private static Object backupmutex = new Object();
 	private static Object mutex = new Object();
+	
+	private static Random RANDOM_GEN = new Random();
 	
 	public static Logger LOG = LoggerProvider.getLogger(Tweets.class);
 
@@ -149,9 +153,9 @@ public class Tweets {
 		
 	}
 
-	public static List<Status> last(int maxResultSize) {
+	public static List<Object> last(int maxResultSize) {
 		int currIndex = 0;
-		List<Status> result = new ArrayList<Status>();
+		List<Object> result = new ArrayList<Object>();
 		synchronized (mutex) {
 			// copio el original
 			currIndex = index - 1;
@@ -166,22 +170,28 @@ public class Tweets {
 		}
 		if (result.size() < maxResultSize) {
 			LOG.warn("not enough status, randomizing repeated");
-			if (backupSize > 0) {
-				List<Status> random = new ArrayList<Status>();
-				for (int i = 0; i < backupSize; i++) {
-					if (!result.contains(backup[i])) {
-						random.add(backup[i]);
-					}
+			List<Object> random = new ArrayList<Object>();
+			for (int i = 0; i < backupSize; i++) {
+				if (!result.contains(backup[i])) {
+					random.add(backup[i]);
 				}
-				new ListRandom(random.size()).randomize(random);
-				int backup = 0;
-				for (int i = result.size(); i < maxResultSize && backup < random.size(); i++) {
-					result.add(random.get(backup));
-					backup = backup + 1;
+			}
+			//random.addAll(FakeTweet.getInstances());
+			//new ListRandom(random.size()).randomize(random);
+			int size = random.size() + FakeTweet.getInstances().size();
+			for (int i = result.size(); i < maxResultSize ; i++) {
+				int ran = RANDOM_GEN.nextInt();
+				if (ran < 0) {
+					ran = ran * -1;
+				}
+				int pos =  ran % size;
+				if (pos < random.size()) {
+					result.add(0, random.get(pos));
+				} else {
+					result.add(0, FakeTweet.getInstances().get(pos - random.size()));
 				}
 			}
 		}
-		Collections.reverse(result);
 		return result;
 	}
 
