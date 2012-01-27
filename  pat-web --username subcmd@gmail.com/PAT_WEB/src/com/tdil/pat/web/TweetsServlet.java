@@ -42,7 +42,7 @@ public class TweetsServlet extends HttpServlet {
 
 	private void doService(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<Status> answer = Tweets.last(Hashtag.uniqueInstance().getMaxTweetsToAnswer());
+		List<Object> answer = Tweets.last(Hashtag.uniqueInstance().getMaxTweetsToAnswer());
 		resp.setHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT");
 		resp.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
 		resp.setDateHeader ("Expires", -1);
@@ -62,33 +62,29 @@ public class TweetsServlet extends HttpServlet {
 		out.append("</readingInterval>");
 		out.append("<tweets>");
 		int i = 0;
-		for (Status status : answer) {
-			out.append("<tweet>");
-			User user = status.getUser();
-			out.append("<screenName>").append(CDATA_START_TAG);
-			out.append(user.getScreenName());
-			out.append(CDATA_END_TAG).append("</screenName>");
-			out.append("<userName>").append(CDATA_START_TAG);
-			out.append(user.getName());
-			out.append(CDATA_END_TAG).append("</userName>");
-			out.append("<profileImageURL>").append(CDATA_START_TAG);
-			out.append(user.getProfileImageURL() != null ? user.getProfileImageURL().toString() : "");
-			out.append(CDATA_END_TAG).append("</profileImageURL>");
-			out.append("<text>").append(CDATA_START_TAG);
-			out.append(status.getText());
-			out.append(CDATA_END_TAG).append("</text>");
-			out.append("<createdAt>");
-			out.append(dateFormat.format(status.getCreatedAt()));
-			out.append("</createdAt>");
-			out.append("</tweet>");
-			i = i + 1;
-		}
-		// Si no me alcanzaron, relleno con los de mentira
-		if (i < Hashtag.uniqueInstance().getMaxTweetsToAnswer()) {
-			new ListRandom(FakeTweet.getInstances().size()).randomize(FakeTweet.getInstances());
-			int index = 0;
-			for (; i < Hashtag.uniqueInstance().getMaxTweetsToAnswer(); i = i+1) {
-				FakeTweet fakeTweet = FakeTweet.getInstances().get(index++);
+		for (Object stat : answer) {
+			if (stat instanceof Status) {
+				Status status = (Status)stat;
+				out.append("<tweet>");
+				User user = status.getUser();
+				out.append("<screenName>").append(CDATA_START_TAG);
+				out.append(user.getScreenName());
+				out.append(CDATA_END_TAG).append("</screenName>");
+				out.append("<userName>").append(CDATA_START_TAG);
+				out.append(user.getName());
+				out.append(CDATA_END_TAG).append("</userName>");
+				out.append("<profileImageURL>").append(CDATA_START_TAG);
+				out.append(user.getProfileImageURL() != null ? user.getProfileImageURL().toString() : "");
+				out.append(CDATA_END_TAG).append("</profileImageURL>");
+				out.append("<text>").append(CDATA_START_TAG);
+				out.append(status.getText());
+				out.append(CDATA_END_TAG).append("</text>");
+				out.append("<createdAt>");
+				out.append(dateFormat.format(status.getCreatedAt()));
+				out.append("</createdAt>");
+				out.append("</tweet>");
+			} else {
+				FakeTweet fakeTweet = (FakeTweet)stat;
 				out.append("<tweet>");
 				out.append("<screenName>").append(CDATA_START_TAG);
 				out.append(fakeTweet.getScreenName());
@@ -105,9 +101,9 @@ public class TweetsServlet extends HttpServlet {
 				out.append("<createdAt>");
 				out.append(dateFormat.format(new Date()));
 				out.append("</createdAt>");
-				out.append("</tweet>");
+				out.append("</tweet>");				
 			}
-			
+			i = i + 1;
 		}
 		out.append("</tweets>");
 		out.append("</answer>");
