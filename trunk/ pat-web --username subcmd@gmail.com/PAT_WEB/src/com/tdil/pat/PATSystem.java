@@ -12,6 +12,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.LogManager;
 
+import com.tdil.pat.model.FakeTweet;
 import com.tdil.pat.model.FilteredWord;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.model.Poll;
@@ -54,6 +55,7 @@ public class PATSystem implements ServletContextListener {
 		initLogger();
 		User.readAll();
 		FilteredWord.readAll();
+		FakeTweet.readAll();
 		TwitterAccount.readAll();
 		Hashtag.readAll();
 		Poll.readAll();

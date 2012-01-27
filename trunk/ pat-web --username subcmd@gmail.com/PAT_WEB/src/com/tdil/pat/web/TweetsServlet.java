@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import twitter4j.Status;
 import twitter4j.User;
 
+import com.tdil.pat.model.FakeTweet;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.processing.Tweets;
+import com.tdil.pat.processing.testing.ListRandom;
 
 public class TweetsServlet extends HttpServlet {
 
@@ -57,6 +61,7 @@ public class TweetsServlet extends HttpServlet {
 		out.append(String.valueOf(Hashtag.uniqueInstance().getReadingInterval()));
 		out.append("</readingInterval>");
 		out.append("<tweets>");
+		int i = 0;
 		for (Status status : answer) {
 			out.append("<tweet>");
 			User user = status.getUser();
@@ -76,6 +81,33 @@ public class TweetsServlet extends HttpServlet {
 			out.append(dateFormat.format(status.getCreatedAt()));
 			out.append("</createdAt>");
 			out.append("</tweet>");
+			i = i + 1;
+		}
+		// Si no me alcanzaron, relleno con los de mentira
+		if (i < Hashtag.uniqueInstance().getMaxTweetsToAnswer()) {
+			new ListRandom(FakeTweet.getInstances().size()).randomize(FakeTweet.getInstances());
+			int index = 0;
+			for (; i < Hashtag.uniqueInstance().getMaxTweetsToAnswer(); i = i+1) {
+				FakeTweet fakeTweet = FakeTweet.getInstances().get(index++);
+				out.append("<tweet>");
+				out.append("<screenName>").append(CDATA_START_TAG);
+				out.append(fakeTweet.getScreenName());
+				out.append(CDATA_END_TAG).append("</screenName>");
+				out.append("<userName>").append(CDATA_START_TAG);
+				out.append(fakeTweet.getUserName());
+				out.append(CDATA_END_TAG).append("</userName>");
+				out.append("<profileImageURL>").append(CDATA_START_TAG);
+				out.append(fakeTweet.getProfileImageURL());
+				out.append(CDATA_END_TAG).append("</profileImageURL>");
+				out.append("<text>").append(CDATA_START_TAG);
+				out.append(fakeTweet.getText().replace("#hashtag#", "#"+Hashtag.uniqueInstance().getHashtag()));
+				out.append(CDATA_END_TAG).append("</text>");
+				out.append("<createdAt>");
+				out.append(dateFormat.format(new Date()));
+				out.append("</createdAt>");
+				out.append("</tweet>");
+			}
+			
 		}
 		out.append("</tweets>");
 		out.append("</answer>");
