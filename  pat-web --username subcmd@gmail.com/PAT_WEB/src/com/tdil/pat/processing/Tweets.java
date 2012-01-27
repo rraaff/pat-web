@@ -169,11 +169,15 @@ public class Tweets {
 			if (backupSize > 0) {
 				List<Status> random = new ArrayList<Status>();
 				for (int i = 0; i < backupSize; i++) {
-					random.add(backup[i]);
+					if (!result.contains(backup[i])) {
+						random.add(backup[i]);
+					}
 				}
 				new ListRandom(random.size()).randomize(random);
-				for (int i = result.size(); i < maxResultSize; i++) {
-					result.add(random.get(i % random.size()));
+				int backup = 0;
+				for (int i = result.size(); i < maxResultSize && backup < random.size(); i++) {
+					result.add(random.get(backup));
+					backup = backup + 1;
 				}
 			}
 		}
