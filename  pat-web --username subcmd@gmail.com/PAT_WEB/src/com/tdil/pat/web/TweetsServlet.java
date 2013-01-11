@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import twitter4j.User;
 import com.tdil.pat.model.FakeTweet;
 import com.tdil.pat.model.Hashtag;
 import com.tdil.pat.processing.Tweets;
-import com.tdil.pat.processing.testing.ListRandom;
 
 public class TweetsServlet extends HttpServlet {
 
