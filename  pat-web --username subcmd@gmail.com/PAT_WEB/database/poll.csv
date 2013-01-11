@@ -1,2 +1,7 @@
+<<<<<<< .mine
+name,active,optionsList,refreshInterval
+ñandú,true,"ñoño,goats,NoALaReformaConstitucional",100
+=======
 name,active,optionsList,refreshInterval
 Este dato no se usa,true,"bandaA,bandaB,bandaC,bandaD,bandaE,bandaF",2000
+>>>>>>> .r49

@@ -1,2 +1,7 @@
+<<<<<<< .mine
+hashtag,active,filtering,filteringMode,refreshInterval,readingInterval,maxTweetsToAnswer
+reencuentroU,true,false,REPLACE_WORD,2000,2000,6
+=======
 hashtag,active,filtering,filteringMode,refreshInterval,readingInterval,maxTweetsToAnswer
 ClaroMusicos,true,true,REJECT_TEXT,3000,4000,10
+>>>>>>> .r49
