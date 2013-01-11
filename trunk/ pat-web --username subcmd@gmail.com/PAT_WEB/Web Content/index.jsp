@@ -10,7 +10,7 @@
 <% if (!org.apache.commons.lang.StringUtils.isEmpty((String)request.getAttribute("error"))) { %>
 	Error: <%=request.getAttribute("error")%><br>
 <% } %>
-<html:text name="LoginForm" property="username"/><br>
+<html:text name="LoginForm" property="username"/><html:errors property="username" /><br>
 <html:password name="LoginForm" property="password"/><br>
 <html:submit property="operation">Login</html:submit>
 
